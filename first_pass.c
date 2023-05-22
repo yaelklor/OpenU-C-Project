@@ -150,7 +150,6 @@ static bool process_code(line_info line, int i, long *ic, machine_word **code_im
 	char operation[8]; /* stores the string of the current code instruction (mov, stop, jmp etc)  */
 	char *operands[2]; /* 2 strings, each for operand (first operand and second operand) */
 	opcode curr_opcode; /* the current opcode and funct values */
-	funct curr_funct;
 	code_word *codeword; /* The current code word */
 	long ic_before;
 	int j, operand_count;
@@ -164,7 +163,7 @@ static bool process_code(line_info line, int i, long *ic, machine_word **code_im
 	}
 	operation[j] = '\0'; /* End of string */
 	/* Get opcode & funct by command name into curr_opcode/curr_funct */
-	get_opcode_func(operation, &curr_opcode, &curr_funct);
+	get_opcode_func(operation, &curr_opcode);
 	/* If invalid operation (opcode is NONE_OP=-1), print and skip processing the line. */
 	if (curr_opcode == NONE_OP) {
 		printf_line_error(line, "Unrecognized instruction: %s.", operation);
