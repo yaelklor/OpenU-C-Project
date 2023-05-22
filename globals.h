@@ -68,27 +68,6 @@ typedef enum opcodes {
 	NONE_OP = -1
 } opcode;
 
-/** Commands funct */
-typedef enum funct {
-	/* OPCODE 2 */
-	ADD_FUNCT = 1,
-	SUB_FUNCT = 2,
-
-	/* OPCODE 5 */
-	CLR_FUNCT = 1,
-	NOT_FUNCT = 2,
-	INC_FUNCT = 3,
-	DEC_FUNCT = 4,
-
-	/* OPCODE 9 */
-	JMP_FUNCT = 1,
-	BNE_FUNCT = 2,
-	JSR_FUNCT = 3,
-
-	/** Default (No need/Error) */
-	NONE_FUNCT = 0
-} funct;
-
 /** Registers - r0->r1 + not found */
 typedef enum registers {
 	R0 = 0,
