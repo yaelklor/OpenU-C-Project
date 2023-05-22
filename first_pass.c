@@ -86,7 +86,7 @@ bool process_line_fpass(line_info line, long *IC, long *DC, machine_word **code_
 	if (instruction != NONE_INST) {
 		/* if .string or .data, and symbol defined, put it into the symbol table */
 		if ((instruction == DATA_INST || instruction == STRING_INST) && symbol[0] != '\0')
-			/* is data or string, add DC with the symbol to the table as data */
+		/* is data or string, add symbol to the symbol_table with DC value as address of first parameter*/
 			add_table_item(symbol_table, symbol, *DC, DATA_SYMBOL);
 
 		/* if string, encode into data image buffer and increase dc as needed. */
@@ -147,8 +147,8 @@ static void build_extra_codeword_fpass(machine_word **code_img, long *ic, char *
  * @return Whether succeeded or notssss
  */
 static bool process_code(line_info line, int i, long *ic, machine_word **code_img) {
-	char operation[8]; /* stores the string of the current code instruction */
-	char *operands[2]; /* 2 strings, each for operand */
+	char operation[8]; /* stores the string of the current code instruction (mov, stop, jmp etc)  */
+	char *operands[2]; /* 2 strings, each for operand (first operand and second operand) */
 	opcode curr_opcode; /* the current opcode and funct values */
 	funct curr_funct;
 	code_word *codeword; /* The current code word */
