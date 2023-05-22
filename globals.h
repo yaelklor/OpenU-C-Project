@@ -21,14 +21,12 @@ typedef enum booleans {
 
 /** Operand addressing type */
 typedef enum addressing_types {
-	/** Immediate addressing (0) */
-	IMMEDIATE_ADDR = 0,
-	/** Direct addressing (1) */
-	DIRECT_ADDR = 1,
-	/** Relative addressing (2) */
-	RELATIVE_ADDR = 2,
+	/** Immediate addressing (1) */
+	IMMEDIATE_ADDR = 1,
+	/** Direct addressing (3) */
+	DIRECT_ADDR = 3,
 	/** Register addressing */
-	REGISTER_ADDR = 3,
+	REGISTER_ADDR = 5,
 	/** Failed/Not detected addressing */
 	NONE_ADDR = -1
 } addressing_type;
