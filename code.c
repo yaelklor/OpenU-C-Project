@@ -191,7 +191,7 @@ bool validate_operand_by_opcode(line_info line, addressing_type first_addressing
 }
 
 
-code_word *get_code_word(line_info line, opcode curr_opcode, funct curr_funct, int op_count, char *operands[2]) {
+code_word *get_code_word(line_info line, opcode curr_opcode, int op_count, char *operands[2]) {
 	code_word *codeword;
 	/* Get addressing types and validate them: */
 	addressing_type first_addressing = op_count >= 1 ? get_addressing_type(operands[0]) : NONE_ADDR;
@@ -204,7 +204,6 @@ code_word *get_code_word(line_info line, opcode curr_opcode, funct curr_funct, i
 	codeword = (code_word *) malloc_with_check(sizeof(code_word));
 
 	codeword->opcode = curr_opcode;
-	codeword->funct = curr_funct; /* if no funct, curr_funct = NONE_FUNCT = 0, and it should be the default. */
 	codeword->ARE = ((1 << 2) &
 	                 0xFF); /* A is the only one which is 1 when it's an operation. we treat ARE as a single unit so j */
 	/* Default values of register bits are 0 */
