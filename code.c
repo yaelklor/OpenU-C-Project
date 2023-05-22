@@ -126,14 +126,12 @@ void get_opcode_func(char *cmd, opcode *opcode_out) {
 addressing_type get_addressing_type(char *operand) {
 	/* if nothing, just return none */
 	if (operand[0] == '\0') return NONE_ADDR;
-	/* if first char is 'r', second is number in range 0-7 and third is end of string, it's a register */
+	/* if first char is 'r', second is number in range 0-7 and third is end of string, it's a register need to add @ somewere */ 
 	if (operand[0] == 'r' && operand[1] >= '0' && operand[1] <= '7' && operand[2] == '\0') return REGISTER_ADDR;
-	/* if operand starts with # and a number right after that, it's immediately addressed */
-	else if (operand[0] == '#' && is_int(operand + 1)) return IMMEDIATE_ADDR;
+	/* if operand is a number, it's immediately addressed */
+	else if (operand[0] && is_int(operand[0])) return IMMEDIATE_ADDR;
 	/* if operand starts with & and has label afterwards, it;s realtively addressed */
-	else if (operand[0] && operand[0] == '&' && is_valid_label_name(operand + 1)) return RELATIVE_ADDR;
-	/* if operand is a valid label name, it's directly addressed */
-	else if (is_valid_label_name(operand)) return DIRECT_ADDR;
+	else if (is_valid_label_name(operand)) return RELATIVE_ADDR;
 	else return NONE_ADDR;
 }
 
