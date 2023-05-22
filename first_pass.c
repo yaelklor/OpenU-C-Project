@@ -176,7 +176,7 @@ static bool process_code(line_info line, int i, long *ic, machine_word **code_im
 	}
 
 	/* Build code word struct to store in code image array */
-	if ((codeword = get_code_word(line, curr_opcode, curr_funct, operand_count, operands)) == NULL) {
+	if ((codeword = get_code_word(line, curr_opcode, operand_count, operands)) == NULL) {
 		/* Release allocated memory for operands */
 		if (operands[0]) {
 			free(operands[0]);
