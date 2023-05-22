@@ -41,24 +41,25 @@ bool process_line_fpass(line_info line, long *IC, long *DC, machine_word **code_
 
 	i = 0;
 
-	MOVE_TO_NOT_WHITE(line.content, i) /* Move to next non-white char */
+        MOVE_TO_NOT_WHITE(line.content, i) /* Move to next non-white char */
 	if (!line.content[i] || line.content[i] == '\n' || line.content[i] == EOF || line.content[i] == ';')
 		return TRUE; /* Empty/Comment line - no errors found (of course) */
 
-	/* Check if symbol (*:), stages 1.3-1.5 */
+	/* try to check if symbol exists as first word of the line */
 	/* if tried to define label, but it's invalid, return that an error occurred. */
 	if (find_label(line, symbol)) {
 		return FALSE;
 	}
 
-	/* if illegal name */
+	/* if we detected symbol and he has illegal name */
 	if (symbol[0] && !is_valid_label_name(symbol)) {
 		printf_line_error(line, "Illegal label name: %s", symbol);
 		return FALSE;
 	}
-	/* try using strtok instead... */
+	
+	/* if symbol detected, continue to its end */
 	if (symbol[0] != '\0') {
-		for (; line.content[i] != ':'; i++); /* if symbol detected, start analyzing from it's deceleration end */
+		for (; line.content[i] != ':'; i++); 
 		i++;
 	}
 
@@ -115,8 +116,7 @@ bool process_line_fpass(line_info line, long *IC, long *DC, machine_word **code_
 			return FALSE;
 		}
 		/* .entry is handled in second pass! */
-	} /* end if (instruction != NONE) */
-		/* not instruction=>it's a command! */
+	}
 	else {
 		/* if symbol defined, add it to the table */
 		if (symbol[0] != '\0')
