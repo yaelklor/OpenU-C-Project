@@ -47,7 +47,7 @@ bool process_line_fpass(line_info line, long *IC, long *DC, machine_word **code_
 
 	/* try to check if symbol exists as first word of the line */
 	/* if tried to define label, but it's invalid, return that an error occurred. */
-	if (find_label(line, symbol)) {
+	if (!find_label(line, symbol)) {
 		return FALSE;
 	}
 
