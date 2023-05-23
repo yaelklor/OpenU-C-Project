@@ -127,7 +127,7 @@ addressing_type get_addressing_type(char *operand) {
 	/* if nothing, just return none */
 	if (operand[0] == '\0') return NONE_ADDR;
 	/* if first char is 'r', second is number in range 0-7 and third is end of string, it's a register need to add @ somewere */ 
-	if (operand[0] == 'r' && operand[1] >= '0' && operand[1] <= '7' && operand[2] == '\0') return REGISTER_ADDR;
+	if (operand[0] == '@' && operand[1] == 'r' && operand[2] >= '0' && operand[2] <= '7' && operand[3] == '\0') return REGISTER_ADDR;
 	/* if operand is a number, it's immediately addressed */
 	else if (operand[0] && is_int(operand[0])) return IMMEDIATE_ADDR;
 	/* if operand starts with & and has label afterwards, it;s realtively addressed */
