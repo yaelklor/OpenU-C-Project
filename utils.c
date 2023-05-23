@@ -36,12 +36,12 @@ bool find_label(line_info line, char *symbol_dest) {
 			printf_line_error(line,
 			                  "Invalid label name - cannot be longer than 32 chars, may only start with letter be alphanumeric.");
 			symbol_dest[0] = '\0';
-			return TRUE; /* No valid symbol, and no try to define one */
+			return FALSE; /* No valid symbol, and no try to define one */
 		}
-		return FALSE;
+		return TRUE;
 	}
 	symbol_dest[0] = '\0';
-	return FALSE; /* There was no error */
+	return TRUE; /* There was no error */
 }
 
 
