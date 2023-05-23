@@ -80,22 +80,21 @@ typedef enum registers {
 } reg;
 /** Represents a single code word */
 typedef struct code_word {
-	/* First byte: ARE+funct */
-	unsigned int ARE: 3;
-	unsigned int funct: 5;
+	/* First byte: ARE */
+	unsigned int ARE: 2;
 	/* 2nd byte: destination+addressing, source */
-	unsigned int dest_register: 3;
-	unsigned int dest_addressing: 2;
-	unsigned int src_register: 3;
+	unsigned int dest_register: 5;
+	unsigned int dest_addressing: 3;
+	unsigned int src_register: 5;
 	/* Third byte: source addressing, opcode */
-	unsigned int src_addressing: 2;
-	unsigned int opcode: 6;
+	unsigned int src_addressing: 3;
+	unsigned int opcode: 4;
 
 } code_word;
 
 /** Represents a single data word. */
 typedef struct data_word {
-	unsigned int ARE: 3;
+	unsigned int ARE: 2;
 	/* The data content itself (a method for putting data into these field is defined) */
 	unsigned long data;
 } data_word;
