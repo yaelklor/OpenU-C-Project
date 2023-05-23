@@ -286,11 +286,11 @@ reg get_register_by_name(char *name) {
 
 data_word *build_data_word(addressing_type addressing, long data, bool is_extern_symbol) {
 	signed long mask; /* For bitwise operations for data conversion */
-	unsigned long ARE = 4, mask_un; /* 4 = 2^2 = 1 << 2 */
+	unsigned long ARE = 3, mask_un; /* 4 = 2^2 = 1 << 2 */
 	data_word *dataword = malloc_with_check(sizeof(data_word));
 
 	if (addressing == DIRECT_ADDR) {
-		ARE = is_extern_symbol ? 1 : 2;
+		ARE = is_extern_symbol ? 01 : 10;
 	}
 	dataword->ARE = ARE; /* Set ARE field value */
 
