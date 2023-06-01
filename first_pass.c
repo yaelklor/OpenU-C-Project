@@ -222,8 +222,8 @@ static void build_extra_codeword_fpass(machine_word **code_img, long *ic, char *
 		if (operand_addressing == IMMEDIATE_ADDR) {
 			char *ptr;
 			machine_word *word_to_write;
-			/* Get value of immediate addressed operand. notice that it starts with #, so we're skipping the # in the call to strtol */
-			long value = strtol(operand + 1, &ptr, 10);
+			/* Get value of immediate addressed operand.*/
+			long value = strtol(operand , &ptr, 10);
 			word_to_write = (machine_word *) malloc_with_check(sizeof(machine_word));
 			word_to_write->length = 0; /* Not Code word! */
 			(word_to_write->word).data = build_data_word(IMMEDIATE_ADDR, value, FALSE);
