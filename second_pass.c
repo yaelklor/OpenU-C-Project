@@ -136,8 +136,7 @@ int process_spass_operand(line_info line, long *curr_ic, long *ic, char *operand
 	machine_word *word_to_write;
 	/* if the word on *IC has the immediately addressed value (done in first pass), go to next cell (increase ic) */
 	if (addr == IMMEDIATE_ADDR) (*curr_ic)++;
-	if (addr == RELATIVE_ADDR) operand++;
-	if (DIRECT_ADDR == addr || RELATIVE_ADDR == addr) {
+	if (DIRECT_ADDR == addr) {
 		long data_to_add;
 		table_entry *entry = find_by_types(*symbol_table, operand, 3, DATA_SYMBOL, CODE_SYMBOL, EXTERNAL_SYMBOL);
 		if (entry == NULL) {
@@ -146,16 +145,6 @@ int process_spass_operand(line_info line, long *curr_ic, long *ic, char *operand
 		}
 		/*found symbol*/
 		data_to_add = entry->value;
-		/* Calculate the distance to the label from ic if needed */
-		if (addr == RELATIVE_ADDR) {
-			/* if not code symbol it's impossible to calculate distance! */
-			if (entry->type != CODE_SYMBOL) {
-				printf_line_error(line, "The symbol %s cannot be addressed relatively because it's not a code symbol.",
-				                  operand);
-				return FALSE;
-			}
-			data_to_add = data_to_add - *ic;
-		}
 		/* Add to externals reference table if it's an external. increase ic because it's the next data word */
 		if (entry->type == EXTERNAL_SYMBOL) {
 			add_table_item(symbol_table, operand, (*curr_ic) + 1, EXTERNAL_REFERENCE);
