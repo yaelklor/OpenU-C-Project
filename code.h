@@ -8,9 +8,8 @@
  * Detects the opcode and the funct of a command by it's name
  * @param cmd The command name (string)
  * @param opcode_out The opcode value destination
- * @param funct_out The funct value destination
  */
-void get_opcode_func(char* cmd, opcode *opcode_out, funct *funct_out);
+void get_opcode_func(char* cmd, opcode *opcode_out);
 
 /**
  * Returns the addressing type of an operand
@@ -21,13 +20,13 @@ addressing_type get_addressing_type(char *operand);
 
 /**
  * Validates and Builds a code word by the opcode, funct, operand count and operand strings
+ * @param line The line to proceed code word from
  * @param curr_opcode The current opcode
- * @param curr_funct The current funct
  * @param op_count The operands count
  * @param operands a 2-cell array of pointers to first and second operands.
  * @return A pointer to code word struct, which represents the code. if validation fails, returns NULL.
  */
-code_word *get_code_word(line_info line, opcode curr_opcode, funct curr_funct, int op_count, char *operands[2]);
+code_word *get_code_word(line_info line, opcode curr_opcode, int op_count, char *operands[2]);
 
 /**
  * Returns the register enum value by it's name
@@ -44,6 +43,14 @@ reg get_register_by_name(char *name);
  * @return A pointer to the constructed data word for the data by the specified properties.
  */
 data_word *build_data_word(addressing_type addressing, long data, bool is_extern_symbol);
+
+/**
+ * Builds a register data word by the registers (source and destination) values
+ * @param data1 The value of source register (if exists, otherwize value will be NULL)
+ * @param data2 The value of dest register " 
+ * @return A pointer to the constructed data word for the data by the specified properties.
+ */
+data_word *build_register_data_word(long data1, long data2);
 
 /**
  * Separates the operands from a certain index, puts each operand into the destination array,

@@ -4,7 +4,7 @@
 #include <string.h>
 #include <stdarg.h>
 #include "utils.h"
-#include "code.h" /* for checking reserved words */
+#include "code.h"
 
 #define ERR_OUTPUT_FILE stderr
 
@@ -33,17 +33,49 @@ bool find_label(line_info line, char *symbol_dest) {
 	/* if it was a try to define label, print errors if needed. */
 	if (line.content[i] == ':') {
 		if (!is_valid_label_name(symbol_dest)) {
-			printf_line_error(line,
-			                  "Invalid label name - cannot be longer than 32 chars, may only start with letter be alphanumeric.");
+			printf_line_error(line, "Invalid label name - cannot be longer than 32 chars, may only start with letter be alphanumeric.");
 			symbol_dest[0] = '\0';
 			return FALSE; /* No valid symbol, and no try to define one */
 		}
+		printf("legal label defined (in find_label func), returning TRUE\n");
 		return TRUE;
 	}
 	symbol_dest[0] = '\0';
 	return TRUE; /* There was no error */
 }
 
+/* Returns whether an error occurred during the try of finding the next word from given pointer. puts the word into the second buffer. */
+bool find_next_word(line_info line, char *dest, int *i) {
+	int j, k;
+	j = 0;
+	k=*i;
+
+	/* Skip white chars at the beginning anyway */
+	MOVE_TO_NOT_WHITE(line.content, k)
+
+	/* Let's allocate some memory to the string needed to be returned */
+	for (; line.content[k] && line.content[k]!=' ' && line.content[k]!='\n' && line.content[k] != EOF && k <= MAX_LINE_LENGTH; k++, j++) {
+		dest[j] = line.content[k];
+	}
+
+	if(dest[0]=='\0'){
+	printf("empty line");
+		return FALSE; /* No valid first word, and no try to define one */
+	}
+	dest[j] = '\0'; /* End of string */
+	*i=k;
+	return TRUE; /* There was no error */
+}
+
+bool is_macro_opening(char *s)
+{
+    return !strcmp(s, "mcro") ? TRUE : FALSE;
+}
+
+bool is_macro_closing(char *s)
+{
+    return !strcmp(s, "endmcro") ? TRUE : FALSE;
+}
 
 struct instruction_lookup_item {
 	char *name;
@@ -71,7 +103,11 @@ instruction find_instruction_by_name(char *name) {
 
 bool is_int(char *string) {
 	int i = 0;
-	if (string[0] == '-' || string[0] == '+') string++; /* if string starts with +/-, it's OK */
+	if(string[0]&&!isdigit(string[0])){
+		if (string[0] == '-' || string[0] == '+') {i++;}
+	}
+	
+	 /* if string starts with +/-, it's OK */
 	for (; string[i]; i++) { /* Just make sure that everything is a digit until the end */
 		if (!isdigit(string[i])) {
 			return FALSE;
@@ -105,9 +141,9 @@ bool is_alphanumeric_str(char *string) {
 }
 
 bool is_reserved_word(char *name) {
-	int fun, opc;
+	int opc;
 	/* check if register or command */
-	get_opcode_func(name, &opc, (funct *) &fun);
+	get_opcode_func(name, &opc);
 	if (opc != NONE_OP || get_register_by_name(name) != NONE_REG || find_instruction_by_name(name) != NONE_INST) return TRUE;
 
 	return FALSE;

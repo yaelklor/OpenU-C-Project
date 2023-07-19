@@ -4,7 +4,6 @@
 
 #include "globals.h"
 
-
 /** moves the index to the next place in string where the char isn't white */
 #define MOVE_TO_NOT_WHITE(string, index) \
         for (;string[(index)] && (string[(index)] == '\t' || string[(index)] == ' '); (++(index)))\
@@ -26,6 +25,31 @@ char *strallocat(char *s0, char* s1);
  * @return Whether syntax error found
  */
 bool find_label(line_info line, char *symbol_dest);
+
+/**
+ * Finds the next word from given pointer if exists, and saves it into the buffer.
+ * Returns whether syntax error found.
+ * @param line The source line to find in
+ * @param dest The buffer for copying the found word in
+ * @return Whether syntax error found
+ */
+bool find_next_word(line_info line, char *dest, int *i);
+
+/**
+ * Comparing given word to macro opening word
+ * Returns whether given pointer to word equals to macro opening word
+ * @param s The source word to check
+ * @return Whether given pointer equals to macro opening word
+ */
+bool is_macro_opening(char *s);
+
+/**
+ * Comparing given word to macro closing word
+ * Returns whether given pointer to word equals to macro closing word
+ * @param s The source word to check
+ * @return Whether given pointer equals to macro closing word
+ */
+bool is_macro_closing(char *s);
 
 /**
  * Returns the instruction enum by the instruction's name, without the opening '.'

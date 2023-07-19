@@ -31,40 +31,29 @@ typedef enum addressing_types {
 	NONE_ADDR = -1
 } addressing_type;
 
+
 /** Commands opcode */
 typedef enum opcodes {
-	/* First Group */
 	MOV_OP = 0,
 	CMP_OP = 1,
-
 	ADD_OP = 2,
-	SUB_OP = 2,
-
-	LEA_OP = 4,
-	/* END First Group */
-
-	/* Second Group */
+	SUB_OP = 3,
+	NOT_OP = 4,
 	CLR_OP = 5,
-	NOT_OP = 5,
-	INC_OP = 5,
-	DEC_OP = 5,
-
+	LEA_OP = 6,
+	INC_OP = 7,
+	DEC_OP = 8,
 	JMP_OP = 9,
-	BNE_OP = 9,
-	JSR_OP = 9,
-
-	RED_OP = 12,
-	PRN_OP = 13,
-	/* END Second Group */
-
-	/* Third Group */
+	BNE_OP = 10,
+	RED_OP = 11,
+	PRN_OP = 12,
+	JSR_OP = 13,
 	RTS_OP = 14,
-	STOP_OP = 15,
-	/* END Third Group */
-
+	STOP_OP = 15,	
 	/** Failed/Error */
 	NONE_OP = -1
 } opcode;
+
 
 /** Registers - r0->r1 + not found */
 typedef enum registers {
@@ -78,15 +67,11 @@ typedef enum registers {
 	R7,
 	NONE_REG = -1
 } reg;
+
 /** Represents a single code word */
 typedef struct code_word {
-	/* First byte: ARE */
 	unsigned int ARE: 2;
-	/* 2nd byte: destination+addressing, source */
-	unsigned int dest_register: 5;
 	unsigned int dest_addressing: 3;
-	unsigned int src_register: 5;
-	/* Third byte: source addressing, opcode */
 	unsigned int src_addressing: 3;
 	unsigned int opcode: 4;
 

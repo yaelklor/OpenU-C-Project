@@ -72,13 +72,11 @@ bool process_line_spass(line_info line, long *ic, machine_word **code_img, table
  * @param line The current code line that is being processed
  * @param ic A pointer to the current instruction counter
  * @param code_img The machine code image array
- * @param data_table The data symbol table
- * @param code_table The code symbol table
- * @param ext_table The externals symbol table
- * @param ext_references A pointer to the external symbols references table
+ * @param symbol_table The symbol table
  * @return whether succeeded
  */
 bool add_symbols_to_code(line_info line, long *ic, machine_word **code_img, table *symbol_table) {
+	printf("in add_symbols_to_code func with line: %s\n", line.content);
 	char temp[80];
 	char *operands[2];
 	int i = 0, operand_count;
@@ -88,10 +86,12 @@ bool add_symbols_to_code(line_info line, long *ic, machine_word **code_img, tabl
 	int length = code_img[(*ic) - IC_INIT_VALUE]->length;
 	/* if the length is 1, then there's only the code word, no data. */
 	if (length > 1) {
+		printf("code_img[(*ic) - IC_INIT_VALUE]->length > 1, there is also data (not just code word)\n");
 		/* Now, we need to skip command, and get the operands themselves: */
 		MOVE_TO_NOT_WHITE(line.content, i)
 		find_label(line, temp);
 		if (temp[0] != '\0') { /* if symbol is defined */
+			printf("symbol is defined\n");
 			/* move i right after it's end */
 			for (; line.content[i] && line.content[i] != '\n' && line.content[i] != EOF && line.content[i] != ' ' &&
 			       line.content[i] != '\t'; i++);
@@ -102,8 +102,11 @@ bool add_symbols_to_code(line_info line, long *ic, machine_word **code_img, tabl
 		for (; line.content[i] && line.content[i] != ' ' && line.content[i] != '\t' && line.content[i] != '\n' &&
 		       line.content[i] != EOF; i++);
 		MOVE_TO_NOT_WHITE(line.content, i)
+		printf("skipping command\n");
 		/* now analyze operands We send NULL as string of command because no error will be printed, and that's the only usage for it there. */
 		analyze_operands(line, i, operands, &operand_count, NULL);
+		printf("operand1= %s\n", operands[0]);
+		printf("operand2= %s\n", operands[1]);
 		/* Process operands, if needed. if failed return failure. otherwise continue */
 		if (operand_count--) {
 			isvalid = process_spass_operand(line, &curr_ic, ic, operands[0], code_img, symbol_table);
@@ -132,11 +135,12 @@ bool add_symbols_to_code(line_info line, long *ic, machine_word **code_img, tabl
  */
 int process_spass_operand(line_info line, long *curr_ic, long *ic, char *operand, machine_word **code_img,
                           table *symbol_table) {
+	printf("(*curr_ic)= %d in process_spass_operand\n", (*curr_ic));
 	addressing_type addr = get_addressing_type(operand);
 	machine_word *word_to_write;
 	/* if the word on *IC has the immediately addressed value (done in first pass), go to next cell (increase ic) */
-	if (addr == IMMEDIATE_ADDR) (*curr_ic)++;
-	if (DIRECT_ADDR == addr) {
+	if (addr == IMMEDIATE_ADDR||addr==REGISTER_ADDR) (*curr_ic)++;
+	if (addr == DIRECT_ADDR) {
 		long data_to_add;
 		table_entry *entry = find_by_types(*symbol_table, operand, 3, DATA_SYMBOL, CODE_SYMBOL, EXTERNAL_SYMBOL);
 		if (entry == NULL) {

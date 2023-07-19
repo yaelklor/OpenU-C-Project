@@ -83,7 +83,6 @@ bool process_data_instruction(line_info line, int index, long *data_img, long *d
 		}
 		/* Now let's write to data buffer */
 		value = strtol(temp, &temp_ptr, 10);
-
 		data_img[*dc] = value;
 
 		(*dc)++; /* a word was written right now */
