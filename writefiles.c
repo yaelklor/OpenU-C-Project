@@ -2,7 +2,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include "utils.h"
-#include "table.h"
+#include "table_operations.h"
 
 static const unsigned char base64_table[65] =
     "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
