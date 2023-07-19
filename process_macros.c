@@ -3,7 +3,7 @@
 #include <string.h>
 #include "globals.h"
 #include "code.h"
-#include "utils.h"
+#include "utilities_functions.h"
 #include "instructions.h"
 #include "table_operations.h"
 #include "process_macros.h"
