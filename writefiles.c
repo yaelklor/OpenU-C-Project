@@ -18,7 +18,7 @@ static unsigned char base_64_code_data_img[2]="";
  * @param filename The filename, without the extension
  * @return Whether succeeded
  */
-static bool write_ob(machine_word **code_img, long *data_img, long icf, long dcf, char *filename);
+static bool write_ob_file(machine_word **code_img, long *data_img, long icf, long dcf, char *filename);
 
 /**
  * Writes a symbol table to a file. Each symbol and it's address in line, separated by a single space.
@@ -35,11 +35,10 @@ static bool write_table_to_file(table tab, char *filename, char *file_extension)
  * @param b high bit
  * @return Whether succeeded
  */
-static unsigned createMask(unsigned a, unsigned b);
+static unsigned create_mask(unsigned a, unsigned b);
 
 
-int write_output_files(machine_word **code_img, long *data_img, long icf, long dcf, char *filename,
-                       table symbol_table) {
+int write_output_files(machine_word **code_img, long *data_img, long icf, long dcf, char *filename, table symbol_table) {
 	table externals=NULL, entries=NULL;
 	bool result;
 	printf("in write_output_files func \n");
@@ -58,7 +57,7 @@ int write_output_files(machine_word **code_img, long *data_img, long icf, long d
 	return result;
 }
 
-static unsigned createMask(unsigned a, unsigned b)
+static unsigned create_mask(unsigned a, unsigned b)
 {
    unsigned r = 0, i = 0;
    for (i=a; i<=b; i++)
@@ -67,7 +66,7 @@ static unsigned createMask(unsigned a, unsigned b)
    return r;
 }
 
-static bool write_ob(machine_word **code_img, long *data_img, long icf, long dcf, char *filename) {
+static bool write_ob_file(machine_word **code_img, long *data_img, long icf, long dcf, char *filename) {
 	int i;
 	long val;
 	FILE *file_desc;
@@ -93,8 +92,8 @@ static bool write_ob(machine_word **code_img, long *data_img, long icf, long dcf
 				printf("code_img[%d] is \n", i);
 				printBinaryValue(val);
 				printf("\n");
-				first_6_bits = createMask(0,5);
-				second_6_bits = createMask(6,11);
+				first_6_bits = create_mask(0,5);
+				second_6_bits = create_mask(6,11);
 				first_6_bits = first_6_bits & val;
 				second_6_bits = (second_6_bits & val)>>6;
 				printf("first_6_bits in int %d\n", (int)first_6_bits);
@@ -103,13 +102,13 @@ static bool write_ob(machine_word **code_img, long *data_img, long icf, long dcf
 				printf("base64_table[(int)second_6_bits] is:%c\n", base64_table[(int)second_6_bits]);
 		} else {
 			/* We need to cut the value, keeping only it's 12 lsb, and include the ARE in the whole party as well: */
-			first_12_bits=createMask(0,12);
+			first_12_bits=create_mask(0,12);
 			val = ((first_12_bits & code_img[i]->word.data->data) << 2) | (code_img[i]->word.data->ARE);
 			printf("code_img[%d] is \n", i);
 				printBinaryValue(val);
 				printf("\n");
-				first_6_bits = createMask(0,5);
-				second_6_bits = createMask(6,11);
+				first_6_bits = create_mask(0,5);
+				second_6_bits = create_mask(6,11);
 				first_6_bits = first_6_bits & val;
 				second_6_bits = (second_6_bits & val)>>6;
 				printf("first_6_bits in int %d\n", (int)first_6_bits);
@@ -126,13 +125,13 @@ static bool write_ob(machine_word **code_img, long *data_img, long icf, long dcf
 	/* Write data image. dcf starts at 0 so it's fine */
 	for (i = 0; i < dcf; i++) {
 		/* print only lower 12 bytes */
-		first_12_bits=createMask(0,11);
+		first_12_bits=create_mask(0,11);
 		val = first_12_bits & data_img[i];
 		printf("data_img[%d] is \n", i);
 		printBinaryValue(data_img[i]);
 		printf("\n");
-		first_6_bits = createMask(0,5);
-		second_6_bits = createMask(6,12);
+		first_6_bits = create_mask(0,5);
+		second_6_bits = create_mask(6,12);
 		first_6_bits = first_6_bits & val;
 		second_6_bits = (second_6_bits & val)>>6;
 		printf("first_6_bits in int %d\n", (int)first_6_bits);
@@ -147,7 +146,7 @@ static bool write_ob(machine_word **code_img, long *data_img, long icf, long dcf
 	return TRUE;
 }
 
-/* need to delete in the future!  */
+/* function for debugging  */
 void printBinaryValue(unsigned int num)
 {
     if(!num) return;
