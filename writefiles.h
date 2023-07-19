@@ -1,6 +1,6 @@
 /* Output files related functions */
-#ifndef _WRITEFILES_H
-#define _WRITEFILES_H
+#ifndef _WRITE_FILES_H
+#define _WRITE_FILES_H
 #include "globals.h"
 #include "table_operations.h"
 
