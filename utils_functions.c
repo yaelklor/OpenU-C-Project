@@ -4,7 +4,7 @@
 #include <string.h>
 #include <stdarg.h>
 #include "utils_functions.h"
-#include "code.h"
+#include "utils_code_functions.h"
 
 #define ERR_OUTPUT_FILE stderr
 
