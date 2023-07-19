@@ -2,7 +2,7 @@
 #ifndef _WRITEFILES_H
 #define _WRITEFILES_H
 #include "globals.h"
-#include "table.h"
+#include "table_operations.h"
 
 /**
  * Writes the output files of a single assembled file
