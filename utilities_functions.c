@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdarg.h>
-#include "utils.h"
+#include "utilities_functions.h"
 #include "code.h"
 
 #define ERR_OUTPUT_FILE stderr
