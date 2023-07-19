@@ -3,8 +3,8 @@
 #include <stdlib.h>
 #include "writefiles.h"
 #include "utils_functions.h"
-#include "first_pass.h"
-#include "second_pass.h"
+#include "process_first_pass.h"
+#include "process_second_pass.h"
 #include "process_macros.h"
 
 /**
