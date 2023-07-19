@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "second_pass.h"
+#include "process_second_pass.h"
 #include "utils_code_functions.h"
 #include "utils_functions.h"
 #include "string.h"
