@@ -41,12 +41,11 @@ static unsigned create_mask(unsigned a, unsigned b);
 int write_output_files(machine_word **code_img, long *data_img, long icf, long dcf, char *filename, table symbol_table) {
 	table externals=NULL, entries=NULL;
 	bool result;
-	printf("in write_output_files func \n");
 	if(symbol_table){
 		externals = filter_table_by_type(symbol_table, EXTERNAL_REFERENCE);
 		entries = filter_table_by_type(symbol_table, ENTRY_SYMBOL);}
 		/* Write .ob file */
-		result = write_ob(code_img, data_img, icf, dcf, filename);
+		result = write_ob_file(code_img, data_img, icf, dcf, filename);
 		/* Write *.ent and *.ext files: call with symbols from external references type or entry type only */
 		if(externals){result=write_table_to_file(externals, filename, ".ext");
 		free_table(externals);}
