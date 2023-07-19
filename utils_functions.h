@@ -1,6 +1,6 @@
 /* Contains general-purposed functions, for both passes and many usages */
-#ifndef _UTILITIES_FUNCTIONS_H
-#define _UTILITIES_FUNCTIONS_H
+#ifndef _UTILS_FUNCTIONS_H
+#define _UTILS_FUNCTIONS_H
 
 #include "globals.h"
 
