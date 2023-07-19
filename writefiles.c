@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include "utilities_functions.h"
+#include "utils_functions.h"
 #include "table_operations.h"
 
 static const unsigned char base64_table[65] =
