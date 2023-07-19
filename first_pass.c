@@ -3,8 +3,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include "globals.h"
-#include "code.h"
-#include "utilities_functions.h"
+#include "utils_code_functions.h"
+#include "utils_functions.h"
 #include "instructions.h"
 #include "first_pass.h"
 
