@@ -3,12 +3,11 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdarg.h>
-#include "table.h"
+#include "tables_operations.h"
 #include "utils.h"
 #include "globals.h"
 
 void add_table_macro_item(macro_table *tab, char *key, char *value) {
-	
 	char *temp_key;
 	char *temp_value;
 	macro_table temp_entry, new_entry;
