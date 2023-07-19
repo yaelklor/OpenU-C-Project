@@ -2,7 +2,7 @@
 #ifndef _SECOND_PASS_H
 #define _SECOND_PASS_H
 #include "globals.h"
-#include "table.h"
+#include "table_operations.h"
 
 /**
  * Processes a single source line in the second pass
