@@ -1,4 +1,6 @@
 /* Helper functions to process and analyze code */
+#ifndef _CODE_H
+#define _CODE_H
 #include "table_operations.h"
 #include "globals.h"
 
