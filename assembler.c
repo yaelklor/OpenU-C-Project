@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include "writefiles.h"
+#include "write_files.h"
 #include "utils_functions.h"
 #include "process_first_pass.h"
 #include "process_second_pass.h"
