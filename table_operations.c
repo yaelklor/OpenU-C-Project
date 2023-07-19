@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdarg.h>
-#include "tables_operations.h"
+#include "table_operations.h"
 #include "utils.h"
 #include "globals.h"
 
