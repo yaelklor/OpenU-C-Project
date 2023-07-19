@@ -8,26 +8,25 @@
 #include "process_macros.h"
 
 /**
- * Processes a single assembly source file, and returns the result status.
- * @param filename The filename, without it's extension
+ * This function processes a single assembly source file and returns whether succeeded or not.
+ * @param filename The filename
  * @return Whether succeeded
  */
 static bool process_file(char *filename);
 
 /**
- * Entry point - 24bit assembler. Assembly language specified in booklet.
+ * Entry point.
  */
 int main(int argc, char *argv[]) {
 	int i;
-	/* To break line if needed */
+	/* Flag to break line if needed */
 	bool succeeded = TRUE;
-	/* Process each file by arguments */
+	/* Loop to process each file of arguments */
 	for (i = 1; i < argc; ++i) {
 		/* If last process failed and there's another file, break line: */
 		if (!succeeded) puts("");
 		/* Foreach argument (file name), send it for full processing. */
 		succeeded = process_file(argv[i]);
-		/* Line break if failed */
 	}
 	return 0;
 }
@@ -134,11 +133,11 @@ static bool process_file(char *filename) {
 		dcf = dc;
 	}
 
-	/* if first pass didn't fail, start the second pass */
+	/* if the first pass didn't fail its time to start the second pass */
 	if (is_success) {
 		ic = IC_INIT_VALUE;
 
-		/* Now let's add IC to each DC for each of the data symbols in table */
+		/* Now is time to add IC to each DC for each of the data symbols in table */
 		add_value_to_type(symbol_table, icf, DATA_SYMBOL);
 
 		rewind(file_des); /* Start from beginning of file again */
@@ -158,7 +157,7 @@ static bool process_file(char *filename) {
 			}
 	}
 
-	/* Now let's free some pointer: */
+	/* Now is time to free some pointers: */
 	/* current file name */
 	free(input_filename);
 	/* Free symbol table */
