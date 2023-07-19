@@ -2,7 +2,7 @@
 CC = gcc # GCC Compiler
 CFLAGS = -ansi -Wall -pedantic # Flags
 GLOBAL_DEPS = globals.h # Dependencies for everything
-EXE_DEPS = assembler.o code.o fpass.o spass.o process_macros.o instructions.o table.o utils.o writefiles.o # Deps for exe
+EXE_DEPS = assembler.o code.o fpass.o spass.o process_macros.o instructions.o table_operations.o utils.o writefiles.o # Deps for exe
 
 ## Executable
 assembler: $(EXE_DEPS) $(GLOBAL_DEPS)
@@ -32,9 +32,9 @@ spass.o: second_pass.c second_pass.h $(GLOBAL_DEPS)
 instructions.o: instructions.c instructions.h $(GLOBAL_DEPS)
 	$(CC) -c instructions.c $(CFLAGS) -o $@
 
-## Table:
-table.o: table.c table.h $(GLOBAL_DEPS)
-	$(CC) -c table.c $(CFLAGS) -o $@
+## Table operations:
+table_operations.o: table_operations.c table_operations.h $(GLOBAL_DEPS)
+	$(CC) -c table_operations.c $(CFLAGS) -o $@
 
 ## Useful functions:
 utils.o: utils.c instructions.h $(GLOBAL_DEPS)
