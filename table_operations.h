@@ -1,3 +1,6 @@
+/* Implements a dynamically-allocated symbol/macro table */
+#ifndef _TABLE_OPERATIONS_H
+#define _TABLE_OPERATIONS_H
 #include "globals.h"
 
 /** A symbol type */
