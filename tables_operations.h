@@ -1,6 +1,3 @@
-/* Implements a dynamically-allocated symbol table */
-#ifndef _TABLE_H
-#define _TABLE_H
 #include "globals.h"
 
 /** A symbol type */
