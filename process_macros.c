@@ -5,7 +5,7 @@
 #include "code.h"
 #include "utils.h"
 #include "instructions.h"
-#include "table.h"
+#include "table_operations.h"
 #include "process_macros.h"
 
 
