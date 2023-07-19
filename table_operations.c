@@ -4,7 +4,7 @@
 #include <string.h>
 #include <stdarg.h>
 #include "table_operations.h"
-#include "utils.h"
+#include "utilities_functions.h"
 #include "globals.h"
 
 void add_table_macro_item(macro_table *tab, char *key, char *value) {
