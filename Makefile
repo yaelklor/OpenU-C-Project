@@ -2,7 +2,7 @@
 CC = gcc # GCC Compiler
 CFLAGS = -ansi -Wall -pedantic # Flags
 GLOBAL_DEPS = globals.h # Dependencies for everything
-EXE_DEPS = assembler.o utils_code_functions.o process_first_pass.o process_second_pass.o process_macros.o instructions.o table_operations.o utils_functions.o writefiles.o # Deps for exe
+EXE_DEPS = assembler.o utils_code_functions.o process_first_pass.o process_second_pass.o process_macros.o instructions.o table_operations.o utils_functions.o write_files.o # Deps for exe
 
 ## Executable
 assembler: $(EXE_DEPS) $(GLOBAL_DEPS)
@@ -41,8 +41,8 @@ utils_functions.o: utils_functions.c instructions.h $(GLOBAL_DEPS)
 	$(CC) -c utils_functions.c $(CFLAGS) -o $@
 
 ## Output Files:
-writefiles.o: writefiles.c writefiles.h $(GLOBAL_DEPS)
-	$(CC) -c writefiles.c $(CFLAGS) -o $@
+write_files.o: write_files.c write_files.h $(GLOBAL_DEPS)
+	$(CC) -c write_files.c $(CFLAGS) -o $@
 
 # Clean Target (remove leftovers)
 clean:
