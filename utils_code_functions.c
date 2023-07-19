@@ -3,8 +3,8 @@
 #include <ctype.h>
 #include <stdarg.h>
 #include <stdlib.h>
-#include "code.h"
-#include "utilities_functions.h"
+#include "utils_code_functions.h"
+#include "utils_functions.h"
 
 
 /**
