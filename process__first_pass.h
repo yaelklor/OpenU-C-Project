@@ -1,6 +1,6 @@
 /* Processes a code line in first pass */
-#ifndef _FIRST_PASS_H
-#define _FIRST_PASS_H
+#ifndef _PROCESS_FIRST_PASS_H
+#define _PROCESS_FIRST_PASS_H
 #include "globals.h"
 
 /**
