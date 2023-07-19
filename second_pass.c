@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include "second_pass.h"
 #include "code.h"
-#include "utils.h"
+#include "utilities_functions.h"
 #include "string.h"
 
 int process_spass_operand(line_info line, long *curr_ic, long *ic, char *operand, machine_word **code_img,
